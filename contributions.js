@@ -62,9 +62,19 @@ function displayContributions1(req,res,next,sts,err,data)
 function handleContributionsUpdate(req,res,next)
 {
    // convert to numbers
-   var preTax = JSON.parse(req.body.preTax);
-   var afterTax = JSON.parse(req.body.afterTax);
-   var roth = JSON.parse(req.body.roth);
+   var preTax;
+   var afterTax;
+   var roth;
+   try{
+     preTax = JSON.parse(req.body.preTax);
+     afterTax = JSON.parse(req.body.afterTax);
+     roth = JSON.parse(req.body.roth);
+   }catch(e) {
+     return res.render("contributions", {
+     updateError: "Invalid contribution percentages",
+         userId: userId
+      });
+   }
 
    var userId = req.session.userId;
 
