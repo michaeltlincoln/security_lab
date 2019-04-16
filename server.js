@@ -31,7 +31,20 @@ var allocations = require("./allocations.js");
 var memos = require("./memos.js");
 
 
-
+var isAdmin = function(req, res, next) {
+    if (req.session.userId) {
+        userDAO.getUserById(req.session.userId, function(err, user) {
+             if(user && user.isAdmin) {
+                 next();
+             } else {
+                 return res.redirect("/login");
+             }
+        });
+    } else {
+        console.log("redirecting to login");
+        return res.redirect("/login");
+    }
+};
 
 /********************************************************************************/
 /*										*/
@@ -128,21 +141,6 @@ function setup()
 
    console.log("Listening on " + 8080);
 }
-
-isAdmin = function(req, res, next) {
-    if (req.session.userId) {
-        userDAO.getUserById(req.session.userId, function(err, user) {
-             if(user && user.isAdmin) {
-                 next();
-             } else {
-                 return res.redirect("/login");
-             }
-        });
-    } else {
-        console.log("redirecting to login");
-        return res.redirect("/login");
-    }
-};
 
 
 /********************************************************************************/
