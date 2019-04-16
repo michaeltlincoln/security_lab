@@ -32,9 +32,10 @@ function displayProfile0(req,res,next,succ)
 
    var q = "SELECT U.firstName, U.lastName, P.ssn, P.dob, P.address, P.bankAcc, P.bankRouting";
    q += " FROM User U, Profile P";
-   q += " WHERE U.userId = P.userId AND U.userId = " + userid;
+   q += " WHERE U.userId = P.userId AND U.userId = ?"
 
-   db.query(q,function (e1,d1) { displayProfile1(req,res,next,succ,e1,d1); } );
+   db.query(q, [userid], function (e1,d1) { displayProfile1(req,res,next,succ,e1,d1); } );
+
 }
 
 
@@ -47,7 +48,7 @@ function displayProfile1(req,res,next,succ,err,data)
    var doc = data.rows[0];
    doc.userId = req.session.userId;
    if (succ) doc.updateSuccess = true;
-   
+
    return res.render("profile",doc);
 }
 
