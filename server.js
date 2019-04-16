@@ -102,7 +102,7 @@ function setup()
    app.post("/contributions", contributions.handleContributionsUpdate);
 
    // Benefits Page
-   app.get("/benefits", isLoggedIn, isAdmin, benefits.displayBenefits);
+   app.get("/benefits", isLoggedIn, function (req, res) {isAdmin(req,res, benefits.displayBenefits)});
    app.post("/benefits", isLoggedIn, isAdmin, benefits.updateBenefits);
 
    // Allocations Page
