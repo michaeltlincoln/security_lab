@@ -102,8 +102,8 @@ function setup()
    app.post("/contributions", contributions.handleContributionsUpdate);
 
    // Benefits Page
-   app.get("/benefits", isAdmin, benefits.displayBenefits);
-   app.post("/benefits", isAdmin, benefits.updateBenefits);
+   app.get("/benefits", isLoggedIn, benefits.displayBenefits);
+   app.post("/benefits", isLoggedIn, benefits.updateBenefits);
 
    // Allocations Page
    app.get("/allocations/:userId", allocations.displayAllocations);
