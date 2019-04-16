@@ -103,7 +103,7 @@ function setup()
 
    // Benefits Page
    app.get("/benefits", isLoggedIn, function (req, res) {isAdmin(req,res, benefits.displayBenefits)});
-   app.post("/benefits", isLoggedIn, isAdmin, benefits.updateBenefits);
+   app.post("/benefits", isLoggedIn, function (req, res) {isAdmin(req,res, benefits.displayBenefits)});
 
    // Allocations Page
    app.get("/allocations/:userId", allocations.displayAllocations);
