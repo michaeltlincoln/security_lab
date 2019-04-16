@@ -101,8 +101,8 @@ function setup()
    app.post("/contributions", contributions.handleContributionsUpdate);
 
    // Benefits Page
-   app.get("/benefits", benefits.displayBenefits);
-   app.post("/benefits", benefits.updateBenefits);
+   app.get("/benefits", isLoggedIn, isAdmin, benefitsHandler.displayBenefits);
+   app.post("/benefits", isLoggedIn, isAdmin, benefitsHandler.updateBenefits);
 
    // Allocations Page
    app.get("/allocations/:userId", allocations.displayAllocations);
@@ -128,6 +128,21 @@ function setup()
 
    console.log("Listening on " + 8080);
 }
+
+isAdmin = function(req, res, next) {
+    if (req.session.userId) {
+        userDAO.getUserById(req.session.userId, function(err, user) {
+             if(user && user.isAdmin) {
+                 next();
+             } else {
+                 return res.redirect("/login");
+             }
+        });
+    } else {
+        console.log("redirecting to login");
+        return res.redirect("/login");
+    }
+};
 
 
 
