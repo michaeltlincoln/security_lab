@@ -216,8 +216,8 @@ function handleSignup1(req,res,next,errors,err,data)
    var firstName = req.body.firstName;
    var lastName = req.body.lastName;
    var password = req.body.password;
-   var verify = req.body.verify;   
-   
+   var verify = req.body.verify;
+
    if (err != null) return next(err);
    if (data.rows.length != 0) {
       errors.userNameError = "User name already in use. Please choose another";
@@ -235,9 +235,9 @@ function handleSignup1(req,res,next,errors,err,data)
 function handleSignup2(req,res,next,err,data)
 {
    if (err != null) return next(err);
-   
+
    var userName = req.body.userName;
-   
+
    var q = "SELECT * FROM User U WHERE U.userName = '" + userName + "'";
    db.query(q,function (e1,d1) { handleSignup3(req,res,next,e1,d1); } );
 }
@@ -394,7 +394,7 @@ function displayWelcomePage1(req,res,next,err,data)
 /*										*/
 /********************************************************************************/
 
-exports.isAdminUserMiddlewarr = isAdminUserMiddleware;
+exports.isAdminUserMiddleware = isAdminUserMiddleware;
 exports.isLoggedInMiddleware = isLoggedInMiddleware;
 exports.displayLoginPage = displayLoginPage;
 exports.handleLoginRequest = handleLoginRequest;
