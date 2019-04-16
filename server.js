@@ -31,20 +31,7 @@ var allocations = require("./allocations.js");
 var memos = require("./memos.js");
 
 
-var isAdmin = function(req, res, next) {
-    if (req.session.userId) {
-        userDAO.getUserById(req.session.userId, function(err, user) {
-             if(user && user.isAdmin) {
-                 next();
-             } else {
-                 return res.redirect("/login");
-             }
-        });
-    } else {
-        console.log("redirecting to login");
-        return res.redirect("/login");
-    }
-};
+
 
 /********************************************************************************/
 /*										*/
@@ -114,8 +101,8 @@ function setup()
    app.post("/contributions", contributions.handleContributionsUpdate);
 
    // Benefits Page
-   app.get("/benefits", isAdmin, benefits.displayBenefits);
-   app.post("/benefits", isAdmin, benefits.updateBenefits);
+   app.get("/benefits", benefits.displayBenefits);
+   app.post("/benefits", benefits.updateBenefits);
 
    // Allocations Page
    app.get("/allocations/:userId", allocations.displayAllocations);
@@ -141,6 +128,8 @@ function setup()
 
    console.log("Listening on " + 8080);
 }
+
+
 
 
 /********************************************************************************/
