@@ -91,26 +91,26 @@ function setup()
    app.use(sessionmanager.isLoggedInMiddleware);
 
    // The main page of the app
-   app.get("/dashboard", sessionmanager.displayWelcomePage);
+   app.get("/dashboard", isLoggedIn, sessionmanager.displayWelcomePage);
 
    // Profile page
-   app.get("/profile", profile.displayProfile);
-   app.post("/profile", profile.handleProfileUpdate);
+   app.get("/profile", isLoggedIn, profile.displayProfile);
+   app.post("/profile", isLoggedIn, profile.handleProfileUpdate);
 
     // Contributions Page
-   app.get("/contributions", contributions.displayContributions);
-   app.post("/contributions", contributions.handleContributionsUpdate);
+   app.get("/contributions", isLoggedIn, contributions.displayContributions);
+   app.post("/contributions", isLoggedIn, contributions.handleContributionsUpdate);
 
    // Benefits Page
-   app.get("/benefits", [isAdmin, benefits.displayBenefits]);
-   app.post("/benefits", [isAdmin, benefits.updateBenefits]);
+   app.get("/benefits", [isLoggedIn, isAdmin, benefits.displayBenefits]);
+   app.post("/benefits", [isLoggedIn, isAdmin, benefits.updateBenefits]);
 
    // Allocations Page
-   app.get("/allocations/:userId", allocations.displayAllocations);
+   app.get("/allocations/:userId", isLoggedIn, allocations.displayAllocations);
 
    // Memos Page
-   app.get("/memos", memos.displayMemos);
-   app.post("/memos", memos.addMemos);
+   app.get("/memos", isLoggedIn, memos.displayMemos);
+   app.post("/memos", isLoggedIn, memos.addMemos);
 
    // Handle redirect for learning resources link
    app.get("/learn", function(req, res, next) {
