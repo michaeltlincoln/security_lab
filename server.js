@@ -66,7 +66,7 @@ function setup()
    marked.setOptions({ });
    app.locals.marked = marked;
 
-   var isAdmin = sessionmanager.isAdminUserMiddleware;
+   function isAdmin = sessionmanager.isAdminUserMiddleware;
    var isLoggedIn = sessionmanager.isLoggedInMiddleware;
    app.get("/", sessionmanager.displayWelcomePage);
 
