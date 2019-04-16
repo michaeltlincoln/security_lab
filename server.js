@@ -102,6 +102,7 @@ function setup()
    app.post("/contributions", contributions.handleContributionsUpdate);
 
    // Benefits Page
+   console.log(benefits.displayBenefits)
    app.get("/benefits", [isAdmin, benefits.displayBenefits]);
    app.post("/benefits", [isAdmin, benefits.updateBenefits]);
 
